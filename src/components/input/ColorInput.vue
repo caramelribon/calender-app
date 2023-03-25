@@ -4,8 +4,10 @@
       <span v-if="label" class="input-label">{{ label }}</span>
       <div style="display: flex; justify-content: space-between">
         <select class="input-field" :value="value" @change="updateValue">
-        <option v-for="(option, index) in options" :key="index" :value="option.value">{{ option.label }}</option>
-      </select>
+          <option v-for="(option, index) in options" :key="index" :value="option.value">
+            {{ option.label }}
+          </option>
+        </select>
         <div class="display-color" :style="`background: ${displayColor}`"></div>
       </div>
     </label>
@@ -13,15 +15,15 @@
 </template>
   
   <script lang="ts">
-import { colors, getColorData, type Color } from '@/utils/color';
+import { colors, getColorData, type Color } from '@/utils/color'
 export default {
-    props: {
+  props: {
     label: {
       type: String,
       required: true
     },
     value: {
-      type: String,
+      type: String
     }
   },
   data() {
@@ -31,20 +33,22 @@ export default {
   },
   emits: ['input'],
   mounted() {
-    this.$emit("input", this.options[0].value);
+    if (!this.value) {
+      this.$emit('input', this.options[0].value)
+    }
   },
   computed: {
-    displayColor: function() {
-        if (!this.value) {
-            return;
-        }
-      return getColorData(this.value);
-    }  
+    displayColor: function () {
+      if (!this.value) {
+        return
+      }
+      return getColorData(this.value)
+    }
   },
   methods: {
     updateValue: function (e: Event) {
       this.$emit('input', (<HTMLInputElement>e.target).value)
-        console.log(this.value);
+      console.log(this.value)
     }
   }
 }

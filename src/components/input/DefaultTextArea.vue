@@ -2,7 +2,12 @@
   <div>
     <label>
       <span v-if="label" class="input-label">{{ label }}</span
-      ><textarea class="input-field" :value="value" @input="onInput" :placeholder="placeholder"></textarea>
+      ><textarea
+        class="input-field"
+        :value="value"
+        @input="onInput"
+        :placeholder="placeholder"
+      ></textarea>
     </label>
   </div>
 </template>
@@ -24,8 +29,8 @@ export default {
   methods: {
     onInput: function (e: Event) {
       this.$emit('input', (<HTMLInputElement>e.target).value)
-        console.log((<HTMLInputElement>e.target).value);
-        console.log(this.value);
+      console.log((<HTMLInputElement>e.target).value)
+      console.log(this.value)
     }
   }
 }

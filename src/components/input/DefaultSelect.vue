@@ -3,7 +3,9 @@
     <label>
       <span v-if="label" class="input-label">{{ label }}</span
       ><select class="input-field" :value="value" @change="updateValue">
-        <option v-for="(option, index) in options" :key="index" :value="option.value">{{ option.label }}</option>
+        <option v-for="(option, index) in options" :key="index" :value="option.value">
+          {{ option.label }}
+        </option>
       </select>
     </label>
   </div>
@@ -18,13 +20,15 @@ export default {
     },
     value: {},
     options: {
-      type: Array<{label: string, value: any}>,
+      type: Array<{ label: string; value: any }>,
       required: true
     }
   },
   emits: ['input'],
   mounted() {
-    this.$emit("input", this.options[0].value);
+    if (!this.value) {
+      this.$emit('input', this.options[0].value)
+    }
   },
   methods: {
     updateValue: function (e: Event) {
