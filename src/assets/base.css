@@ -39,6 +39,9 @@ html {
 .mt08 {
   margin-top: 8px;
 }
+.mt10 {
+  margin-top: 10px;
+}
 .mt12 {
   margin-top: 12px;
 }
@@ -94,6 +97,9 @@ html {
   font-size: 10px;
 }
 .fs32 {
+  font-size: 10px;
+}
+.fs48 {
   font-size: 10px;
 }
 .fs72 {
