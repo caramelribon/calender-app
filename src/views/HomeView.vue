@@ -10,6 +10,13 @@
     <div class="mt50">
       <p class="en">Calender</p>
       <p class="jp fw1 mt04">カレンダーの一覧</p>
+      <div class="calenders mt30">
+        <DefaultCalenderCard
+          :calender-data="calender"
+          v-for="(calender, index) in calenders"
+          :key="index"
+        />
+      </div>
       <DefaultButton class="fw1 calender-btn" color="#BADF73"> カレンダーを作成する</DefaultButton>
     </div>
   </div>
@@ -18,6 +25,46 @@
 <script lang="ts" setup>
 import { defineComponent } from 'vue'
 import DefaultButton from '@/components/button/DefaultButton.vue'
+import DefaultCalenderCard from '@/components/DefaultCalenderCard.vue'
+
+const calenders = [
+  {
+    carenderId: 'test',
+    openSatus: 0,
+    createdAt: new Date(),
+    updateAt: new Date(),
+    name: 'テストカレンダー',
+    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
+    color: 0
+  },
+  {
+    carenderId: 'test',
+    openSatus: 0,
+    createdAt: new Date(),
+    updateAt: new Date(),
+    name: 'テストカレンダー',
+    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
+    color: 1
+  },
+  {
+    carenderId: 'test',
+    openSatus: 0,
+    createdAt: new Date(),
+    updateAt: new Date(),
+    name: 'テストカレンダー',
+    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
+    color: 2
+  },
+  {
+    carenderId: 'test',
+    openSatus: 0,
+    createdAt: new Date(),
+    updateAt: new Date(),
+    name: 'テストカレンダー',
+    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
+    color: 3
+  }
+]
 </script>
 
 <style scoped>
@@ -30,6 +77,13 @@ import DefaultButton from '@/components/button/DefaultButton.vue'
 }
 .en {
   color: var(--orange);
+}
+.calenders {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
 }
 .calender-btn {
   width: 314px;
