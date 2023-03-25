@@ -1,35 +1,33 @@
 @import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+p {
+  font-size: 16px;
+  line-height: 100%;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+.en {
+  font-size: 72px;
+  font-weight: 900;
+  line-height: 150%;
+  text-align: center;
+  -webkit-text-stroke: 1px #000000;
+}
+.jp {
+  font-size: 20px;
+  text-align: center;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.form {
+  width: 100%;
+  height: auto;
+  padding: 40px 50px;
+  border: 1px solid var(--black);
+  border-radius: 30px;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+label {
+  font-size: 20px;
+  line-height: 100%;
+}
+input {
 }
