@@ -59,7 +59,7 @@ class CalenderRepository {
         updatdAt: calenderData!.updatedAt.toDate(),
         createdAt: calenderData!.createdAt.toDate(),
         schedules: allScheduleData
-      } as Calendar
+      } as Calendar | undefined
     } catch (error) {
       console.error('Error adding document: ', error)
       throw error

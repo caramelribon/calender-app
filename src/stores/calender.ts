@@ -5,7 +5,7 @@ import type { Schedule } from '@/values/Schedule'
 
 export const useCalenderStore = defineStore('calender', {
   state: () => ({
-    calender: {} as Calendar,
+    calender: undefined as Calendar | undefined,
     calenders: [] as Calendar[],
   }),
   getters: {
@@ -34,6 +34,7 @@ export const useCalenderStore = defineStore('calender', {
       try {
         const calenderData = await CalenderRepository.getCalender(calenderId)
         this.calender = calenderData
+        return calenderData
       } catch (error) {
         console.error(error)
       }

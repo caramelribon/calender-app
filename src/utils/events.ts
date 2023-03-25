@@ -1,20 +1,7 @@
-import type { EventContentArg, EventInput, EventSourceInput } from '@fullcalendar/core'
-import type { EventImpl } from '@fullcalendar/core/internal'
+import type { Schedule } from '@/values/Schedule'
+import type { EventInput } from '@fullcalendar/core'
 
-export type EventColor = 0 | 1 | 2
-
-export type CustomEvent = {
-  scheduleId?: string
-  title?: string
-  description?: string
-  start: string
-  end: string
-  all: boolean
-  createUser: string
-  color: EventColor
-}
-
-export const customEventToFcEvent = (customEvent: CustomEvent): EventInput => {
+export const scheduleToFcEvent = (customEvent: Schedule): EventInput => {
   const res: EventInput = {
     id: customEvent.scheduleId,
     title: customEvent.title,
@@ -26,23 +13,7 @@ export const customEventToFcEvent = (customEvent: CustomEvent): EventInput => {
   return res
 }
 
-export const fcEventToCustomEvent = (
-  fcEvent: EventImpl,
-  oldCustomEvent: CustomEvent
-): CustomEvent => {
-  return {
-    scheduleId: fcEvent.id,
-    title: fcEvent.title,
-    start: fcEvent.startStr,
-    end: fcEvent.endStr,
-    all: fcEvent.allDay,
-    createUser: oldCustomEvent.createUser,
-    color: oldCustomEvent.color,
-    description: oldCustomEvent.description
-  }
-}
-
-const eventColorToFcColor = (color: EventColor) => {
+const eventColorToFcColor = (color: number) => {
   switch (color) {
     case 0:
       return 'red'
