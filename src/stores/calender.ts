@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
 import CalenderRepository from '@/repository/calender'
+import type { Calendar } from '@/values/Calendar'
+import type { Schedule } from '@/values/Schedule'
 
 export const useCalenderStore = defineStore('calender', {
   state: () => ({
-    calender: {},
-    calenders: []
+    calender: {} as Calendar,
+    calenders: [] as Calendar[],
   }),
   getters: {
     getCalender(state) {
@@ -13,7 +15,7 @@ export const useCalenderStore = defineStore('calender', {
   },
 
   actions: {
-    async createCalender(calender) {
+    async createCalender(calender: Omit<Calendar, "calenderId">) {
       try {
         const calenderData = await CalenderRepository.setCalender(calender)
         this.calender = calenderData
@@ -21,14 +23,14 @@ export const useCalenderStore = defineStore('calender', {
         console.error(error)
       }
     },
-    async saveSchedule(schedule, calenderId) {
+    async saveSchedule(schedule: Omit<Schedule, 'scheduleId'>, calenderId: string) {
       try {
         await CalenderRepository.saveSchedule(schedule, calenderId)
       } catch (error) {
         console.error(error)
       }
     },
-    async fetchCalender(calenderId) {
+    async fetchCalender(calenderId: string) {
       try {
         const calenderData = await CalenderRepository.getCalender(calenderId)
         this.calender = calenderData
@@ -45,7 +47,7 @@ export const useCalenderStore = defineStore('calender', {
         console.error(error)
       }
     },
-    async removeSchedule(calenderId, scheduleId) {
+    async removeSchedule(calenderId: string, scheduleId: string) {
       try {
         await CalenderRepository.deleteSchedule(calenderId, scheduleId)
       } catch (error) {
