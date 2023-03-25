@@ -6,11 +6,12 @@
 
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+export default {}
 </script>
 
 <style>
 .main {
   margin: 0 auto;
-  max-width: 480px;
+  max-width: 610px;
 }
 </style>
