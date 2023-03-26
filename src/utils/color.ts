@@ -2,7 +2,7 @@ export const colors = [
   {
     label: 'Red',
     value: 0,
-    color: '#FC484C'
+    color: '#fecbcc'
   },
   {
     label: 'Orange',
