@@ -1,23 +1,95 @@
 <template>
   <div class="main__contents">
-    
+    <div class="about">
+      <p class="message">What's App Name?</p>
+      <p class="fw1 fs24 mt18 ml30">
+        App Nameはカレンダーをシェアしたり、<br />
+        みんなでカレンダーを作る上げたりするアプリです！
+      </p>
+    </div>
+    <div class="mt50">
+      <p class="en">Calender</p>
+      <p class="jp fw1 mt04">カレンダーの一覧</p>
+      <div class="calenders mt30">
+        <DefaultCalenderCard
+          :calender-data="calender"
+          v-for="(calender, index) in calenders"
+          :key="index"
+        />
+      </div>
+      <DefaultButton class="fw1 calender-btn" color="#BADF73"> カレンダーを作成する</DefaultButton>
+    </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { defineComponent } from 'vue'
+import DefaultButton from '@/components/button/DefaultButton.vue'
+import DefaultCalenderCard from '@/components/DefaultCalenderCard.vue'
 
-export default defineComponent({})
+const calenders = [
+  {
+    carenderId: 'test',
+    openSatus: 0,
+    createdAt: new Date(),
+    updateAt: new Date(),
+    name: 'テストカレンダー',
+    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
+    color: 0
+  },
+  {
+    carenderId: 'test',
+    openSatus: 0,
+    createdAt: new Date(),
+    updateAt: new Date(),
+    name: 'テストカレンダー',
+    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
+    color: 1
+  },
+  {
+    carenderId: 'test',
+    openSatus: 0,
+    createdAt: new Date(),
+    updateAt: new Date(),
+    name: 'テストカレンダー',
+    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
+    color: 2
+  },
+  {
+    carenderId: 'test',
+    openSatus: 0,
+    createdAt: new Date(),
+    updateAt: new Date(),
+    name: 'テストカレンダー',
+    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
+    color: 3
+  }
+]
 </script>
 
 <style scoped>
-h1 {
-  font-style: normal;
-  font-size: 72px;
-  line-height: 150%;
-  /* identical to box height, or 108px */
-
-  color: #fff57f;
+.main__contents {
+  padding: 50px 50px;
+}
+.message {
+  font-size: 64px;
+  line-height: 100%;
+  color: var(--white);
+  font-weight: 900;
   -webkit-text-stroke: 1px #000000;
+}
+.en {
+  color: var(--orange);
+}
+.calenders {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+.calender-btn {
+  width: 314px;
+  margin: 50px auto 0 auto;
 }
 </style>
