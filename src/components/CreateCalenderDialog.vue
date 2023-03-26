@@ -63,6 +63,7 @@ export default {
       required: true
     }
   },
+  emits: ['close'],
   data() {
     return {
       name: '',

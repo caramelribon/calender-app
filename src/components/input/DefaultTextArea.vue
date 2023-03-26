@@ -29,8 +29,6 @@ export default {
   methods: {
     onInput: function (e: Event) {
       this.$emit('input', (<HTMLInputElement>e.target).value)
-      console.log((<HTMLInputElement>e.target).value)
-      console.log(this.value)
     }
   }
 }

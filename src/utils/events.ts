@@ -1,5 +1,6 @@
 import type { Schedule } from '@/values/Schedule'
 import type { EventInput } from '@fullcalendar/core'
+import { getColorData } from './color'
 
 export const scheduleToFcEvent = (customEvent: Schedule): EventInput => {
   const res: EventInput = {
@@ -7,21 +8,12 @@ export const scheduleToFcEvent = (customEvent: Schedule): EventInput => {
     title: customEvent.title,
     start: customEvent.start,
     end: customEvent.end,
-    allDay: true,
+    allDay: customEvent.all,
     color: eventColorToFcColor(customEvent.color)
   }
   return res
 }
 
 const eventColorToFcColor = (color: number) => {
-  switch (color) {
-    case 0:
-      return 'red'
-    case 1:
-      return 'green'
-    case 2:
-      return 'lightblue'
-    default:
-      return 'blue'
-  }
+  return getColorData(color)
 }
