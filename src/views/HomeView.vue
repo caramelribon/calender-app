@@ -68,6 +68,9 @@ const calenders = [
 </script>
 
 <style scoped>
+.main__contents {
+  padding: 50px 50px;
+}
 .message {
   font-size: 64px;
   line-height: 100%;
