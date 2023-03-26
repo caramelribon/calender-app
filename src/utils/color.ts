@@ -2,32 +2,32 @@ export const colors = [
   {
     label: 'Red',
     value: 0,
-    color: '#ff0000'
+    color: '#FC484C'
   },
   {
     label: 'Orange',
     value: 1,
-    color: '#ffa500'
+    color: '#FFC940'
   },
   {
     label: 'Yellow',
     value: 2,
-    color: '#ffff00'
+    color: '#fff57f'
   },
   {
     label: 'Green',
     value: 3,
-    color: '#008000'
+    color: '#badf73'
   },
   {
     label: 'Blue',
     value: 4,
-    color: '#0000ff'
+    color: '#8bd0ff'
   },
   {
     label: 'Purple',
     value: 5,
-    color: '#800080'
+    color: '#d0bfff'
   }
 ]
 
