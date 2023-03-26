@@ -23,7 +23,7 @@ export default {
       required: true
     },
     value: {
-      type: String
+      type: Number
     }
   },
   data() {
@@ -39,16 +39,12 @@ export default {
   },
   computed: {
     displayColor: function () {
-      if (!this.value) {
-        return
-      }
       return getColorData(this.value)
     }
   },
   methods: {
     updateValue: function (e: Event) {
-      this.$emit('input', (<HTMLInputElement>e.target).value)
-      console.log(this.value)
+      this.$emit('input', parseInt((<HTMLInputElement>e.target).value))
     }
   }
 }

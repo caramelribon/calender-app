@@ -6,7 +6,7 @@ import type { Schedule } from '@/values/Schedule'
 export const useCalenderStore = defineStore('calender', {
   state: () => ({
     calender: undefined as Calendar | undefined,
-    calenders: [] as Calendar[],
+    calenders: [] as Calendar[]
   }),
   getters: {
     getCalender(state) {
@@ -15,7 +15,7 @@ export const useCalenderStore = defineStore('calender', {
   },
 
   actions: {
-    async createCalender(calender: Omit<Calendar, "calenderId">) {
+    async createCalender(calender: Omit<Calendar, 'calenderId'>) {
       try {
         const calenderData = await CalenderRepository.setCalender(calender)
         this.calender = calenderData
@@ -23,9 +23,16 @@ export const useCalenderStore = defineStore('calender', {
         console.error(error)
       }
     },
-    async saveSchedule(schedule: Omit<Schedule, 'scheduleId'>, calenderId: string) {
+    async createSchedule(schedule: Omit<Schedule, 'scheduleId'>, calenderId: string) {
       try {
         await CalenderRepository.saveSchedule(schedule, calenderId)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+    async updateSchedule(schedule: Schedule, calenderId: string) {
+      try {
+        await CalenderRepository.updateSchedule(schedule, calenderId)
       } catch (error) {
         console.error(error)
       }

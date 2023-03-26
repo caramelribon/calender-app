@@ -33,10 +33,32 @@ class CalenderRepository {
         .doc(calenderId)
         .collection('schedules')
         .doc()
-        const {start, end, ...others} = schedule
+      const { start, end, ...others } = schedule
       const scheduleData = {
         ...others,
         scheduleId: calenderSubCollectionRef.id,
+        start: firebase.firestore.Timestamp.fromDate(start),
+        end: firebase.firestore.Timestamp.fromDate(end)
+      }
+
+      await calenderSubCollectionRef.set(scheduleData)
+    } catch (error) {
+      console.error('Error adding document: ', error)
+      throw error
+    }
+  }
+
+  static async updateSchedule(schedule: Schedule, calenderId: string) {
+    try {
+      const calenderSubCollectionRef = firebase
+        .firestore()
+        .collection('calenders')
+        .doc(calenderId)
+        .collection('schedules')
+        .doc(schedule.scheduleId)
+      const { start, end, ...others } = schedule
+      const scheduleData = {
+        ...others,
         start: firebase.firestore.Timestamp.fromDate(start),
         end: firebase.firestore.Timestamp.fromDate(end)
       }

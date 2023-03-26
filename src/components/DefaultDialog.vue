@@ -43,6 +43,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 900;
 }
 
 .modal-content {
@@ -60,13 +61,14 @@ export default {
   border-radius: 20px;
   padding: 20px;
   padding: 40px 50px;
+  z-index: 900;
 }
 
 .modal-body {
   width: 100%;
 }
 
-.modal-footer{
+.modal-footer {
   padding-top: 20px;
 }
 </style>

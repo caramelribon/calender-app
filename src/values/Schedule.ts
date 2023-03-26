@@ -1,5 +1,5 @@
 export type Schedule = {
-  scheduleId?: string
+  scheduleId: string
   title: string
   all: boolean
   color: number

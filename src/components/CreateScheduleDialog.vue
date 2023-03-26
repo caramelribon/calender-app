@@ -41,7 +41,7 @@
     </template>
     <template #footer>
       <div style="display: flex; justify-content: center">
-        <DefaultButton color="#8BD0FF">予定を保存する</DefaultButton>
+        <DefaultButton color="#8BD0FF" @click="save">予定を保存する</DefaultButton>
       </div>
     </template>
   </DefaultDialog>
@@ -54,6 +54,7 @@ import DefaultInput from '@/components/input/DefaultInput.vue'
 import DateInput from '@/components/input/DateInput.vue'
 import DefaultTextArea from '@/components/input/DefaultTextArea.vue'
 import DefaultButton from '@/components/button/DefaultButton.vue'
+import type { Schedule } from '@/values/Schedule'
 export default {
   components: {
     DefaultDialog,
@@ -69,13 +70,14 @@ export default {
       required: true
     }
   },
+  emits: ['close', 'save'],
   data() {
     return {
       title: '',
       status: 0,
-      color: undefined,
-      start: undefined,
-      end: undefined,
+      color: 0,
+      start: '',
+      end: '',
       description: '',
       statusOptions: [
         { label: '非公開', value: 0 },
@@ -84,9 +86,49 @@ export default {
       ]
     }
   },
+  mounted: function () {
+    this.resetData()
+  },
+  watch: {
+    isOpen: function () {
+      this.resetData()
+    }
+  },
   methods: {
+    resetData: function () {
+      this.title = ''
+      this.color = 0
+      this.start = this.toISOStringWithTimezoneOffset(new Date())
+      this.end = this.toISOStringWithTimezoneOffset(new Date())
+      this.description = ''
+    },
     close() {
       this.$emit('close')
+    },
+    save: function () {
+      const newSchedule: Omit<Schedule, 'scheduleId' | 'createUser'> = {
+        title: this.title,
+        color: this.color,
+        start: new Date(this.start),
+        end: new Date(this.end),
+        description: this.description,
+        all: false
+      }
+      this.$emit('save', newSchedule)
+      this.close()
+    },
+    toISOStringWithTimezoneOffset: function (date: Date): string {
+      const pad = function (str: string): string {
+        return ('0' + str).slice(-2)
+      }
+      const year = date.getFullYear().toString()
+      const month = pad((date.getMonth() + 1).toString())
+      const day = pad(date.getDate().toString())
+      const hour = pad(date.getHours().toString())
+      const min = pad(date.getMinutes().toString())
+      const sec = pad(date.getSeconds().toString())
+
+      return `${year}-${month}-${day}T${hour}:${min}:${sec}`
     }
   }
 }
