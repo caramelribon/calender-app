@@ -35,7 +35,7 @@
     </template>
     <template #footer>
       <div style="display: flex; justify-content: center">
-        <DefaultButton color="#BADF73">カレンダーを作成</DefaultButton>
+        <DefaultButton color="#BADF73" @click="save">カレンダーを作成</DefaultButton>
       </div>
     </template>
   </DefaultDialog>
@@ -48,6 +48,7 @@ import DefaultInput from '@/components/input/DefaultInput.vue'
 import DefaultSelect from '@/components/input/DefaultSelect.vue'
 import DefaultTextArea from '@/components/input/DefaultTextArea.vue'
 import DefaultButton from '@/components/button/DefaultButton.vue'
+import type { Calendar } from '@/values/Calendar'
 export default {
   components: {
     DefaultDialog,
@@ -63,12 +64,12 @@ export default {
       required: true
     }
   },
-  emits: ['close'],
+  emits: ['close', 'save'],
   data() {
     return {
       name: '',
       status: 0,
-      color: undefined,
+      color: 0,
       description: '',
       statusOptions: [
         { label: '非公開', value: 0 },
@@ -80,6 +81,19 @@ export default {
   methods: {
     close() {
       this.$emit('close')
+    },
+    save() {
+      const calendar: Omit<Calendar, 'calenderId' | 'createUser' | 'lastUpdateUser'> = {
+        name: this.name,
+        openState: this.status,
+        color: this.color,
+        description: this.description,
+        createdAt: new Date(),
+        updatdAt: new Date(),
+        schedules: []
+      }
+      this.$emit('save', calendar)
+      this.close()
     }
   }
 }

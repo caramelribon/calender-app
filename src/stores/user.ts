@@ -24,6 +24,7 @@ export const useUserStore = defineStore('user', {
     async autoSignIn() {
       const userData = await UserRepository.autoSignIn()
       this.user = userData
+      return userData
     },
     async logOut() {
       await UserRepository.signOut()

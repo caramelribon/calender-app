@@ -8,63 +8,70 @@
       </p>
     </div>
     <div class="mt50">
-      <p class="en">Calender</p>
+      <p class="en">Calendar</p>
       <p class="jp fw1 mt04">カレンダーの一覧</p>
       <div class="calenders mt30">
         <DefaultCalenderCard
           :calender-data="calender"
-          v-for="(calender, index) in calenders"
-          :key="index"
+          @click="() => handleCalenderClick(calender.calenderId)"
+          v-for="calender in calenderStore.calenders"
+          :key="calender.calenderId"
         />
       </div>
-      <DefaultButton class="fw1 calender-btn" color="#BADF73"> カレンダーを作成する</DefaultButton>
+      <DefaultButton
+        class="fw1 calender-btn"
+        color="#BADF73"
+        @click="handleCreateCarendarButtonClick"
+      >
+        カレンダーを作成する</DefaultButton
+      >
     </div>
+    <CreateCalenderDialiog
+      :isOpen="isCreateCalendarDialogOpen"
+      @close="() => (isCreateCalendarDialogOpen = false)"
+      @save="createCalender"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import DefaultButton from '@/components/button/DefaultButton.vue'
 import DefaultCalenderCard from '@/components/DefaultCalenderCard.vue'
+import CreateCalenderDialiog from '@/components/CreateCalenderDialog.vue'
+import { useCalenderStore } from '@/stores/calender'
+import { useRouter } from 'vue-router'
+import type { Calendar } from '@/values/Calendar'
+import { useUserStore } from '@/stores/user'
+const router = useRouter()
+const calenderStore = useCalenderStore()
+const userStore = useUserStore()
+onMounted(() => {
+  calenderStore.fetchAllCalenders()
+})
+const handleCalenderClick = (calenderId: string) => {
+  router.push('/calendar/' + calenderId)
+}
 
-const calenders = [
-  {
-    carenderId: 'test',
-    openSatus: 0,
-    createdAt: new Date(),
-    updateAt: new Date(),
-    name: 'テストカレンダー',
-    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
-    color: 0
-  },
-  {
-    carenderId: 'test',
-    openSatus: 0,
-    createdAt: new Date(),
-    updateAt: new Date(),
-    name: 'テストカレンダー',
-    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
-    color: 1
-  },
-  {
-    carenderId: 'test',
-    openSatus: 0,
-    createdAt: new Date(),
-    updateAt: new Date(),
-    name: 'テストカレンダー',
-    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
-    color: 2
-  },
-  {
-    carenderId: 'test',
-    openSatus: 0,
-    createdAt: new Date(),
-    updateAt: new Date(),
-    name: 'テストカレンダー',
-    description: 'こちらのカレンダーはテスト用です。こちらのカレンダーはテスト用です。',
-    color: 3
+const isCreateCalendarDialogOpen = ref(false)
+
+const handleCreateCarendarButtonClick = () => {
+  isCreateCalendarDialogOpen.value = true
+}
+
+const createCalender = async (
+  calendar: Omit<Calendar, 'calenderId' | 'createUser' | 'lastUpdateUser'>
+) => {
+  let userId = userStore.user?.userId
+  if (!userId) userId = ''
+  const newCal: Omit<Calendar, 'calenderId'> = {
+    createUser: userId,
+    lastUpdateUser: userId,
+    ...calendar
   }
-]
+  await calenderStore.createCalender(newCal)
+  calenderStore.fetchAllCalenders()
+}
 </script>
 
 <style scoped>
@@ -87,6 +94,7 @@ const calenders = [
   align-items: center;
   gap: 50px;
   flex-wrap: wrap;
+  cursor: pointer;
 }
 .calender-btn {
   width: 314px;
