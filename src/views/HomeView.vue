@@ -1,9 +1,9 @@
 <template>
   <div class="main__contents">
     <div class="about">
-      <p class="message">What's App Name?</p>
+      <p class="message">What's Calenshare?</p>
       <p class="fw1 fs24 mt18 ml30">
-        App Nameはカレンダーをシェアしたり、<br />
+        Calenshareはカレンダーをシェアしたり、<br />
         みんなでカレンダーを作る上げたりするアプリです！
       </p>
     </div>
@@ -13,6 +13,7 @@
       <div class="calenders mt30">
         <DefaultCalenderCard
           :calender-data="calender"
+          style="cursor: pointer"
           @click="() => handleCalenderClick(calender.calenderId)"
           v-for="calender in calenderStore.calenders"
           :key="calender.calenderId"
@@ -94,7 +95,6 @@ const createCalender = async (
   align-items: center;
   gap: 50px;
   flex-wrap: wrap;
-  cursor: pointer;
 }
 .calender-btn {
   width: 314px;
