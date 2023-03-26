@@ -15,7 +15,7 @@
         placeholder="開始日"
       />
       <DateInput
-        style="margin-top: 10px"
+        style="margin-top: 15px"
         label="終了"
         :value="end"
         @input="(val) => (end = val)"
