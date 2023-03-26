@@ -42,6 +42,15 @@ class CalenderRepository {
       }
 
       await calenderSubCollectionRef.set(scheduleData)
+
+      const now = new Date()
+      const calenderRef = firebase.firestore().collection('calenders').doc(calenderId)
+      const calenderDoc = await calenderRef.get()
+      const calenderData = calenderDoc.data()
+      await calenderRef.set({
+        ...calenderData,
+        updatedAt: firebase.firestore.Timestamp.fromDate(now)
+      })
     } catch (error) {
       console.error('Error adding document: ', error)
       throw error
@@ -64,6 +73,15 @@ class CalenderRepository {
       }
 
       await calenderSubCollectionRef.set(scheduleData)
+
+      const now = new Date()
+      const calenderRef = firebase.firestore().collection('calenders').doc(calenderId)
+      const calenderDoc = await calenderRef.get()
+      const calenderData = calenderDoc.data()
+      await calenderRef.set({
+        ...calenderData,
+        updatedAt: firebase.firestore.Timestamp.fromDate(now)
+      })
     } catch (error) {
       console.error('Error adding document: ', error)
       throw error
