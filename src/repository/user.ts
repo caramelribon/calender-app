@@ -42,7 +42,7 @@ class UserRepository {
   }
 
   static async autoSignIn(): Promise<User | undefined> {
-    return new Promise<User | undefined>(async (resolve) => {
+    return new Promise<User | undefined>((resolve) => {
       const unsubscribe = firebase.auth().onAuthStateChanged(async (user: firebase.User | null) => {
         unsubscribe()
         if (!user) {
@@ -58,7 +58,7 @@ class UserRepository {
 
   static async signOut() {
     try {
-      await UserRepository.signOut()
+      await firebase.auth().signOut()
     } catch (error) {
       console.error('Error adding document: ', error)
       throw error

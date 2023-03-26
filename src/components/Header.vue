@@ -2,13 +2,15 @@
   <header>
     <div class="header">
       <p class="fs48 lh100 app-name" @click="toHome">App Name</p>
-      <div class="btn-group">
-        <DefaultButton class="fw1 btn" color="#fff57f" @click="toLogin">login</DefaultButton>
-        <DefaultButton class="fw1 btn" color="#fecbcc" @click="toSinup"> sign up</DefaultButton>
+      <div class="btn-group" v-if="!userStore.user">
+        <DefaultButton class="fw1" color="#fff57f" @click="toLogin">login</DefaultButton>
+        <DefaultButton class="fw1" color="#fecbcc" @click="toSinup"> sign up</DefaultButton>
       </div>
-      <!-- <div>
-        <DefaultButton class="fw1 calender-btn" color="#d0bfff">log out</DefaultButton>
-      </div> -->
+      <div v-else>
+        <DefaultButton class="fw1 calender-btn" color="#d0bfff" @click="toLogout"
+          >log out</DefaultButton
+        >
+      </div>
     </div>
   </header>
 </template>
@@ -16,8 +18,10 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 import DefaultButton from '@/components/button/DefaultButton.vue'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
+const userStore = useUserStore()
 
 const toHome = () => {
   router.push('/')
@@ -27,6 +31,9 @@ const toLogin = () => {
 }
 const toSinup = () => {
   router.push('/signup')
+}
+const toLogout = () => {
+  router.push('/logout')
 }
 </script>
 
@@ -41,9 +48,6 @@ header {
   font-weight: 900;
   -webkit-text-stroke: 1px #000000;
   cursor: pointer;
-}
-.btn {
-  width: 150px;
 }
 .btn-group {
   display: flex;
