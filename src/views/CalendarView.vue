@@ -6,7 +6,9 @@
         <img src="/src/assets/time-icon.svg" class="calender-icon" alt="" />
         <div class="last-edit-date">最終編集時刻 {{ lastUpdatedAtStr }}</div>
       </div>
-      <p class="mt16" style="word-wrap: break-word">{{ calenderStore.calender.description }}</p>
+      <p class="fs24 fw1 mt16" style="word-wrap: break-word">
+        {{ calenderStore.calender.description }}
+      </p>
       <DefaultButton
         align="right"
         color="#D8EEFF"
@@ -72,7 +74,7 @@ const defaultCalenderOptions = {
   initialView: 'dayGridMonth',
   views: {
     dayGridMonth: {
-      dayMaxEvents: 3
+      dayMaxEvents: 6
     },
 
     dayGridWeek: {
@@ -183,7 +185,7 @@ const getScheduleFromId = (id: string) => {
   color: var(--white);
   -webkit-text-stroke: 1px #000000;
 }
-.last-edit-group{
+.last-edit-group {
   display: flex;
   justify-content: end;
   align-content: center;

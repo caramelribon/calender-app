@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="header">
-      <p class="fs48 lh100 app-name" @click="toHome">App Name</p>
+      <p class="fs48 lh100 app-name" @click="toHome">Calenshare</p>
       <div class="btn-group" v-if="!userStore.user">
         <DefaultButton class="fw1" color="#fff57f" @click="toLogin">login</DefaultButton>
         <DefaultButton class="fw1" color="#fecbcc" @click="toSinup"> sign up</DefaultButton>

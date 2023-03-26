@@ -39,20 +39,23 @@ export default {
   font-size: 20px;
   line-height: 100%;
   color: #000000;
+  width: 50px;
 }
 
 .input-field {
   display: inline-block;
-  height: 60px;
+  height: auto;
   font-size: 20px;
   position: relative;
   border: 0;
   box-sizing: border-box;
+  padding: 0;
+  margin-left: 10px;
 }
 
 input::-webkit-datetime-edit {
   border-radius: 10px;
-  height: 100%;
+  margin-top: 4px;
   align-items: center;
   display: flex;
 }
