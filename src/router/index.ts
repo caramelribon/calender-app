@@ -27,6 +27,21 @@ const router = createRouter({
       component: SignUp
     },
     {
+      path: '/logout',
+      name: 'Logout',
+      component: {
+        mounted: () => {
+          const userStore = useUserStore()
+          userStore.logOut()
+          const router = useRouter()
+          router.push('/login')
+        }
+      },
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
       path: '/calendar/:calenderId',
       name: 'Calendar',
       component: CalendarView,
@@ -36,13 +51,15 @@ const router = createRouter({
     }
   ]
 })
-router.beforeEach(async(to, from, next) => {
-    const userStore = useUserStore()
-    const user = await userStore.autoSignIn()
-    if (to.matched.some(record => record.meta.requiresAuth) && !user) {
-      next('/login')
-    }else{
-      next()
-    }
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
+  const user = await userStore.autoSignIn()
+  if (to.matched.some((record) => record.meta.requiresAuth) && !user) {
+    next('/login')
+  } else if (!to.matched.some((record) => record.meta.requiresAuth) && user) {
+    next('/')
+  } else {
+    next()
+  }
 })
 export default router
