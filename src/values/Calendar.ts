@@ -9,6 +9,6 @@ export type Calendar = {
     lastUpdateUser: string
     updatdAt: Date
     description: string
-    openState: string,
+    openState: number,
     schedules: Schedule[] 
 }

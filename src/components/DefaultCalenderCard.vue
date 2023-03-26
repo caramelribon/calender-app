@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts" setup>
+import { getColorData } from '@/utils/color'
 import { ref, defineProps, computed } from 'vue'
 const props = defineProps({
   calenderData: {
@@ -27,15 +28,7 @@ const props = defineProps({
 })
 const calenderData = ref(props.calenderData)
 const bgColor = computed(() => {
-  if (props.calenderData.color === 1) {
-    return 'var(--yellow)'
-  } else if (props.calenderData.color === 2) {
-    return 'var(--purple)'
-  } else if (props.calenderData.color === 3) {
-    return 'var(--pink)'
-  } else {
-    return 'var(--blue)'
-  }
+  return getColorData(calenderData.value.color);
 })
 </script>
 
