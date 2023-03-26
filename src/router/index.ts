@@ -1,5 +1,6 @@
+import { useUserStore } from '@/stores/user'
 import CalendarView from '@/views/CalendarView.vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, useRouter } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LogIn from '../views/LogIn.vue'
 import SignUp from '../views/SignUp.vue'
@@ -10,7 +11,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
@@ -25,9 +29,20 @@ const router = createRouter({
     {
       path: '/calendar/:calenderId',
       name: 'Calendar',
-      component: CalendarView
+      component: CalendarView,
+      meta: {
+        requiresAuth: true
+      }
     }
   ]
 })
-
+router.beforeEach(async(to, from, next) => {
+    const userStore = useUserStore()
+    const user = await userStore.autoSignIn()
+    if (to.matched.some(record => record.meta.requiresAuth) && !user) {
+      next('/login')
+    }else{
+      next()
+    }
+})
 export default router
