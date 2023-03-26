@@ -2,9 +2,18 @@
   <div class="main__contents">
     <template v-if="calenderStore.calender">
       <div class="calender-title">{{ calenderStore.calender.name }}</div>
-      <div class="mt04 last-edit-date">最終編集時刻 {{ lastUpdatedAtStr }}</div>
+      <div class="mt04 last-edit-group">
+        <img src="/src/assets/time-icon.svg" class="calender-icon" alt="" />
+        <div class="last-edit-date">最終編集時刻 {{ lastUpdatedAtStr }}</div>
+      </div>
       <p class="mt16" style="word-wrap: break-word">{{ calenderStore.calender.description }}</p>
-      <DefaultButton align="right" color="#D8EEFF" class="add-event-btn" @click="handleCreateScheduleButtonClick">予定の追加</DefaultButton>
+      <DefaultButton
+        align="right"
+        color="#D8EEFF"
+        class="add-event-btn"
+        @click="handleCreateScheduleButtonClick"
+        >予定の追加</DefaultButton
+      >
       <FullCalender :options="calenderOptions">
         <template v-slot:dayHeaderContent="arg">
           <span class="fc-custom-header">{{ arg.text }}</span>
@@ -173,6 +182,12 @@ const getScheduleFromId = (id: string) => {
   font-weight: 900;
   color: var(--white);
   -webkit-text-stroke: 1px #000000;
+}
+.last-edit-group{
+  display: flex;
+  justify-content: end;
+  align-content: center;
+  gap: 10px;
 }
 .last-edit-date {
   text-align: end;
