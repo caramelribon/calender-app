@@ -11,6 +11,7 @@
           class="mt10"
           type="email"
           autocomplete="email"
+          required
           placeholder="example.com"
         />
       </div>
@@ -22,17 +23,35 @@
           v-model="password"
           type="password"
           autocomplete="current-password"
+          required
           placeholder="6文字以上の英数字"
         />
       </div>
-      <DefaultButton class="fw1 login-btn" color="#FFF57F">Log in</DefaultButton>
+      <DefaultButton class="fw1 login-btn" color="#FFF57F" @click="login">Log in</DefaultButton>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import DefaultButton from '@/components/button/DefaultButton.vue'
+import { useUserStore } from '@/stores/user'
+const router = useRouter()
+const userStore = useUserStore()
+
+const email = ref('')
+const password = ref('')
+
+const login = async () => {
+  const userData = {
+    email: email.value,
+    password: password.value
+  }
+  await userStore.signIn(userData)
+  alert('ログインしました')
+  router.push('/')
+}
 </script>
 
 <style scoped>
