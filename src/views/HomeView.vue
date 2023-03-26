@@ -1,42 +1,45 @@
 <template>
-  <div class="main__contents">
-    <div class="about">
-      <p class="message">What's Calenshare?</p>
-      <p class="fw1 fs24 mt18 ml30">
-        Calenshareはカレンダーをシェアしたり、<br />
-        みんなでカレンダーを作る上げたりするアプリです！
-      </p>
-    </div>
-    <div class="mt50">
-      <p class="en">Calendar</p>
-      <p class="jp fw1 mt04">カレンダーの一覧</p>
-      <div class="calenders mt30">
-        <DefaultCalenderCard
-          :calender-data="calender"
-          style="cursor: pointer"
-          @click="() => handleCalenderClick(calender.calenderId)"
-          v-for="calender in calenderStore.calenders"
-          :key="calender.calenderId"
-        />
+  <div class="top">
+    <Header />
+    <div class="main__contents">
+      <div class="about">
+        <p class="message">What's Calenshare?</p>
+        <p class="fw1 fs24 mt18 ml30">
+          Calenshareはカレンダーをシェアしたり、<br />
+          みんなでカレンダーを作る上げたりするアプリです！
+        </p>
       </div>
-      <DefaultButton
-        class="fw1 calender-btn"
-        color="#BADF73"
-        @click="handleCreateCarendarButtonClick"
-      >
-        カレンダーを作成する</DefaultButton
-      >
+      <div class="mt50">
+        <p class="en">Calendar</p>
+        <p class="jp fw1 mt04">カレンダーの一覧</p>
+        <div class="calenders mt30">
+          <DefaultCalenderCard
+            :calender-data="calender"
+            @click="() => handleCalenderClick(calender.calenderId)"
+            v-for="calender in calenderStore.calenders"
+            :key="calender.calenderId"
+          />
+        </div>
+        <DefaultButton
+          class="fw1 calender-btn"
+          color="#BADF73"
+          @click="handleCreateCarendarButtonClick"
+        >
+          カレンダーを作成する</DefaultButton
+        >
+      </div>
+      <CreateCalenderDialiog
+        :isOpen="isCreateCalendarDialogOpen"
+        @close="() => (isCreateCalendarDialogOpen = false)"
+        @save="createCalender"
+      />
     </div>
-    <CreateCalenderDialiog
-      :isOpen="isCreateCalendarDialogOpen"
-      @close="() => (isCreateCalendarDialogOpen = false)"
-      @save="createCalender"
-    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { defineComponent, onMounted, ref } from 'vue'
+import Header from '@/components/Header.vue'
 import DefaultButton from '@/components/button/DefaultButton.vue'
 import DefaultCalenderCard from '@/components/DefaultCalenderCard.vue'
 import CreateCalenderDialiog from '@/components/CreateCalenderDialog.vue'
@@ -76,6 +79,9 @@ const createCalender = async (
 </script>
 
 <style scoped>
+.top {
+   background-color: #d8eeff;
+}
 .main__contents {
   padding: 50px 50px;
 }

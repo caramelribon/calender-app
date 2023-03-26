@@ -1,48 +1,51 @@
 <template>
-  <div class="main__contents">
-    <template v-if="calenderStore.calender">
-      <div class="calender-title">{{ calenderStore.calender.name }}</div>
-      <div class="mt04 last-edit-group">
-        <img src="/src/assets/time-icon.svg" class="calender-icon" alt="" />
-        <div class="last-edit-date">最終編集時刻 {{ lastUpdatedAtStr }}</div>
-      </div>
-      <p class="fs24 fw1 mt16" style="word-wrap: break-word">
-        {{ calenderStore.calender.description }}
-      </p>
-      <DefaultButton
-        align="right"
-        color="#D8EEFF"
-        class="add-event-btn"
-        @click="handleCreateScheduleButtonClick"
-        >予定の追加</DefaultButton
-      >
-      <FullCalender :options="calenderOptions">
-        <template v-slot:dayHeaderContent="arg">
-          <span class="fc-custom-header">{{ arg.text }}</span>
-        </template>
-        <template v-slot:dayCellContent="arg">
-          <span class="fc-custom-daygrid-day-number">{{ arg.dayNumberText }}</span>
-        </template>
-        <template v-slot:eventContent="arg">
-          <span class="fc-custom-event">
-            <i>{{ arg.event.title }}</i></span
-          >
-        </template>
-      </FullCalender>
-      <CreateScheduleDialog
-        :isOpen="isCreateScheduleDialogOpen"
-        @close="() => (isCreateScheduleDialogOpen = false)"
-        @save="createSchedule"
-      />
-      <EditScheduleDialog
-        v-if="selectSchedule"
-        :isOpen="isEditScheduleDialogOpen"
-        @close="() => (isEditScheduleDialogOpen = false)"
-        :schedule="selectSchedule"
-        @save="editSchedule"
-        @delete="deleteSchedule"
-      />
-    </template>
+  <div class="calender-page" :style="`background-color: ${bgColor}`">
+    <Header />
+    <div class="main__contents">
+      <template v-if="calenderStore.calender">
+        <div class="calender-title">{{ calenderStore.calender.name }}</div>
+        <div class="mt04 last-edit-group">
+          <img src="/src/assets/time-icon.svg" class="calender-icon" alt="" />
+          <div class="last-edit-date">最終編集時刻 {{ lastUpdatedAtStr }}</div>
+        </div>
+        <p class="fs24 fw1 mt16" style="word-wrap: break-word">{{ calenderStore.calender.description }}</p>
+        <DefaultButton
+          align="right"
+          color="#D8EEFF"
+          class="add-event-btn"
+          @click="handleCreateScheduleButtonClick"
+          >予定の追加</DefaultButton
+        >
+        <div style="background-color: white">
+          <FullCalender :options="calenderOptions">
+            <template v-slot:dayHeaderContent="arg">
+              <span class="fc-custom-header">{{ arg.text }}</span>
+            </template>
+            <template v-slot:dayCellContent="arg">
+              <span class="fc-custom-daygrid-day-number">{{ arg.dayNumberText }}</span>
+            </template>
+            <template v-slot:eventContent="arg">
+              <span class="fc-custom-event">
+                <i>{{ arg.event.title }}</i></span
+              >
+            </template>
+          </FullCalender>
+        </div>
+        <CreateScheduleDialog
+          :isOpen="isCreateScheduleDialogOpen"
+          @close="() => (isCreateScheduleDialogOpen = false)"
+          @save="createSchedule"
+        />
+        <EditScheduleDialog
+          v-if="selectSchedule"
+          :isOpen="isEditScheduleDialogOpen"
+          @close="() => (isEditScheduleDialogOpen = false)"
+          :schedule="selectSchedule"
+          @save="editSchedule"
+          @delete="deleteSchedule"
+        />
+      </template>
+    </div>
   </div>
 </template>
 
@@ -59,6 +62,8 @@ import CreateScheduleDialog from '@/components/CreateScheduleDialog.vue'
 import EditScheduleDialog from '@/components/EditScheduleDialog.vue'
 import type { Schedule } from '@/values/Schedule'
 import DefaultButton from '@/components/button/DefaultButton.vue'
+import Header from '@/components/Header.vue'
+import { getColorData } from '@/utils/color'
 
 const route = useRoute()
 const router = useRouter()
@@ -92,6 +97,13 @@ onMounted(async () => {
   if (!fetchData) {
     router.push('/')
   }
+})
+
+const bgColor = computed(() => {
+  if (calenderStore.calender === undefined) {
+    return '#8bd0ff'
+  }
+  return getColorData(calenderStore.calender?.color)
 })
 
 const events = computed(() => {
@@ -165,7 +177,7 @@ const getScheduleFromId = (id: string) => {
 
 <style scoped>
 .main__contents {
-  padding: 30px 0;
+  padding: 50px 50px;
 }
 .fc-custom-header {
   font-size: small;

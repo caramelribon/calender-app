@@ -62,6 +62,7 @@ span {
   background-color: var(--white);
 }
 .card-bottom {
+  background-color: white;
   height: 170px;
   padding: 24px 50px;
   border: 1px solid var(--black);

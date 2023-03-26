@@ -1,44 +1,47 @@
 <template>
-  <div class="main__contents">
-    <p class="en">Sign up</p>
-    <p class="jp fw1 mt04">アカウント登録してください</p>
-    <div class="form mt30">
-      <div class="colum">
-        <label class="fw1">name</label>
-        <input
-          id="name"
-          v-model="userName"
-          class="mt10"
-          type="name"
-          required
-          autocomplete="name"
-          placeholder="nickname"
-        />
+  <div class="signup-page">
+    <Header />
+    <div class="main__contents">
+      <p class="en">Sign up</p>
+      <p class="jp fw1 mt04">アカウント登録してください</p>
+      <div class="form mt30">
+        <div class="colum">
+          <label class="fw1">name</label>
+          <input
+            id="name"
+            v-model="userName"
+            class="mt10"
+            type="name"
+            required
+            autocomplete="name"
+            placeholder="nickname"
+          />
+        </div>
+        <div class="mt30 colum">
+          <label class="fw1">email</label>
+          <input
+            id="email"
+            v-model="email"
+            class="mt10"
+            type="email"
+            required
+            autocomplete="email"
+            placeholder="example.com"
+          />
+        </div>
+        <div class="mt30 colum">
+          <label class="fw1">password</label>
+          <input
+            class="mt10"
+            id="password"
+            v-model="password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="6文字以上の英数字"
+          />
+        </div>
+        <DefaultButton class="fw1 login-btn" color="#FECBCC" @click="login">Sign up</DefaultButton>
       </div>
-      <div class="mt30 colum">
-        <label class="fw1">email</label>
-        <input
-          id="email"
-          v-model="email"
-          class="mt10"
-          type="email"
-          required
-          autocomplete="email"
-          placeholder="example.com"
-        />
-      </div>
-      <div class="mt30 colum">
-        <label class="fw1">password</label>
-        <input
-          class="mt10"
-          id="password"
-          v-model="password"
-          type="password"
-          autocomplete="current-password"
-          placeholder="6文字以上の英数字"
-        />
-      </div>
-      <DefaultButton class="fw1 login-btn" color="#FECBCC" @click="login">Sign up</DefaultButton>
     </div>
   </div>
 </template>
@@ -48,6 +51,7 @@ import { defineComponent, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import DefaultButton from '@/components/button/DefaultButton.vue'
 import { useUserStore } from '@/stores/user'
+import Header from '@/components/Header.vue'
 const router = useRouter()
 const userStore = useUserStore()
 
@@ -68,6 +72,13 @@ const login = async () => {
 </script>
 
 <style scoped>
+.signup-page {
+  background-color: #d8eeff;
+  height: 100vh;
+}
+.main__contents {
+  padding: 50px 50px;
+}
 .en {
   color: var(--pink);
 }
