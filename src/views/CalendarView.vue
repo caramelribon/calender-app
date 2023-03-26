@@ -1,10 +1,10 @@
 <template>
   <div class="main__contents">
     <template v-if="calenderStore.calender">
-      <div>{{ calenderStore.calender.name }}</div>
-      <div>最終編集時刻 {{ lastUpdatedAtStr }}</div>
-      <p style="word-wrap: break-word">{{ calenderStore.calender.description }}</p>
-      <button @click="handleCreateScheduleButtonClick">addEvent</button>
+      <div class="calender-title">{{ calenderStore.calender.name }}</div>
+      <div class="mt04 last-edit-date">最終編集時刻 {{ lastUpdatedAtStr }}</div>
+      <p class="mt16" style="word-wrap: break-word">{{ calenderStore.calender.description }}</p>
+      <DefaultButton align="right" color="#D8EEFF" class="add-event-btn" @click="handleCreateScheduleButtonClick">予定の追加</DefaultButton>
       <FullCalender :options="calenderOptions">
         <template v-slot:dayHeaderContent="arg">
           <span class="fc-custom-header">{{ arg.text }}</span>
@@ -34,7 +34,7 @@
     </template>
   </div>
 </template>
-  
+
 <script lang="ts" setup>
 import FullCalender from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -47,6 +47,7 @@ import { computed, onMounted, ref, watch } from 'vue'
 import CreateScheduleDialog from '@/components/CreateScheduleDialog.vue'
 import EditScheduleDialog from '@/components/EditScheduleDialog.vue'
 import type { Schedule } from '@/values/Schedule'
+import DefaultButton from '@/components/button/DefaultButton.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -150,8 +151,11 @@ const getScheduleFromId = (id: string) => {
   return calenderStore.calender?.schedules.find((e) => e.scheduleId === id)
 }
 </script>
-  
+
 <style scoped>
+.main__contents {
+  padding: 30px 0;
+}
 .fc-custom-header {
   font-size: small;
 }
@@ -164,5 +168,19 @@ const getScheduleFromId = (id: string) => {
 .fc-custom-event {
   font-size: small;
 }
+.calender-title {
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--white);
+  -webkit-text-stroke: 1px #000000;
+}
+.last-edit-date {
+  text-align: end;
+  font-weight: 100;
+  color: var(--gray);
+}
+.add-event-btn {
+  width: 250px;
+  margin: 24px 0 24px auto;
+}
 </style>
-  
